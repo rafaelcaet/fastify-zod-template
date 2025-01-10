@@ -20,8 +20,10 @@ app.register(fastifyCors, { origin: "*" });
 app.register(fastifySwagger, {
   openapi: {
     info: {
+      description: "teste documentation",
+      summary: "teste summary",
       title: "teste",
-      verison: "1.0.0",
+      version: "1.0.0",
     },
   },
   transform: jsonSchemaTransform,
@@ -34,5 +36,5 @@ app.register(fastifySwaggerUi, {
 app.register(routes);
 
 app.listen({ port: 3000 }).then(() => {
-  console.log("http server running");
+  console.log("http server running at port 3000");
 });

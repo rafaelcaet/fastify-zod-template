@@ -11,12 +11,13 @@ interface IUser {
 const users: IUser[] = [];
 
 export async function routes(app: FastifyTypedInstance) {
+  /*    GET     */
   app.get(
     "/users",
     {
       schema: {
+        tags: ["users"],
         description: "Get a user",
-        tag: ["users"],
         response: {
           200: z.array(
             z.object({
@@ -32,13 +33,13 @@ export async function routes(app: FastifyTypedInstance) {
       return users;
     }
   );
-
+  /*    POST    */
   app.post(
     "/users",
     {
       schema: {
         description: "Create a new user",
-        tag: ["users"],
+        tags: ["users"],
         body: z.object({
           name: z.string(),
           email: z.string().email(),
@@ -48,14 +49,14 @@ export async function routes(app: FastifyTypedInstance) {
         },
       },
     },
-    async (req, res) => {
+    async (req: any, res: any) => {
       const { name, email } = req.body;
       users.push({
         id: randomUUID(),
         name,
         email,
       });
-      return res.status(201).send();
+      return res.status(201).send("User created successfully");
     }
   );
 }
